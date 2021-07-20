@@ -3,7 +3,6 @@ module github.com/irisnet/integration-test
 go 1.16
 
 require (
-	github.com/irisnet/irismod-sdk-go
 	github.com/irisnet/core-sdk-go v0.0.0-20210719031639-9c6ece68d908
 	github.com/tendermint/tendermint v0.34.11
 

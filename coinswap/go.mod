@@ -1,4 +1,4 @@
-module github.com/irisnet/coinswap-sdk-go
+module github.com/irisnet/irismod/coinswap-sdk-go
 
 go 1.16
 
