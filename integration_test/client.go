@@ -10,27 +10,25 @@ import (
 	txtypes "github.com/irisnet/core-sdk-go/types/tx"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/irisnet/token-sdk-go"
+	"github.com/irisnet/irismod-sdk-go/token"
 
-	"github.com/irisnet/coinswap-sdk-go"
+	"github.com/irisnet/irismod-sdk-go/staking"
 
-	"github.com/irisnet/staking-sdk-go"
+	"github.com/irisnet/irismod-sdk-go/service"
 
-	"github.com/irisnet/service-sdk-go"
+	"github.com/irisnet/irismod-sdk-go/record"
 
-	"github.com/irisnet/record-sdk-go"
+	"github.com/irisnet/irismod-sdk-go/random"
 
-	"github.com/irisnet/random-sdk-go"
+	"github.com/irisnet/irismod-sdk-go/oracle"
 
-	keys "github.com/irisnet/core-sdk-go/client"
+	"github.com/irisnet/irismod-sdk-go/nft"
 
-	"github.com/irisnet/oracle-sdk-go"
+	"github.com/irisnet/irismod-sdk-go/htlc"
 
-	"github.com/irisnet/nft-sdk-go"
+	"github.com/irisnet/irismod-sdk-go/gov"
 
-	"github.com/irisnet/htlc-sdk-go"
-
-	"github.com/irisnet/gov-sdk-go"
+	"github.com/irisnet/irismod-sdk-go/coinswap"
 )
 
 type Client struct {
@@ -39,7 +37,7 @@ type Client struct {
 	encodingConfig types.EncodingConfig
 
 	types.BaseClient
-	Key     keys.Client
+	Key     client.Client
 	Bank    bank.Client
 	Token   token.Client
 	Staking staking.Client
@@ -58,12 +56,13 @@ func NewClient(cfg types.ClientConfig) Client {
 
 	// create a instance of baseClient
 	baseClient := client.NewBaseClient(cfg, encodingConfig, nil)
-	keysClient := keys.NewClient(baseClient)
+
+	keysClient := client.NewKeysClient(cfg, baseClient)
+
 	bankClient := bank.NewClient(baseClient, encodingConfig.Marshaler)
 	tokenClient := token.NewClient(baseClient, encodingConfig.Marshaler)
 	stakingClient := staking.NewClient(baseClient, encodingConfig.Marshaler)
 	govClient := gov.NewClient(baseClient, encodingConfig.Marshaler)
-
 	serviceClient := service.NewClient(baseClient, encodingConfig.Marshaler)
 	recordClient := record.NewClient(baseClient, encodingConfig.Marshaler)
 	nftClient := nft.NewClient(baseClient, encodingConfig.Marshaler)
